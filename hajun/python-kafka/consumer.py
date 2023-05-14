@@ -1,16 +1,18 @@
-from kafka import KafkaConsumer
+import csv
 import json
 import os
-import csv
 import time
+
+from kafka import KafkaConsumer
 
 
 class Consumer:
     def __init__(self, brokers, topicName):
         self.consumer = KafkaConsumer(
             topicName,
+            group_id="bank-consumer-group-v3",
             bootstrap_servers=brokers,
-            api_version=(0, 11, 5)
+            api_version=(0, 11, 5),
         )
 
     def income_check(self):
@@ -45,7 +47,6 @@ class Consumer:
 
 
 if __name__ == '__main__':
-    # localhost
     brokers = ["localhost:9092"]
     topicName = "bank"
     consumer = Consumer(brokers, topicName)

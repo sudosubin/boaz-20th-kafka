@@ -1,17 +1,18 @@
-from kafka import KafkaProducer
 import csv
 import json
 import time
+
+from kafka import KafkaProducer
 
 
 class Producer:
     def __init__(self, brokers, topicName):
         self.producer = KafkaProducer(
             bootstrap_servers=brokers,
-            api_version=(0, 11, 5)
+            api_version=(0, 11, 5),
         )
         self.topicName = topicName
-    
+
     def produce_client(self, filePath):
         with open(filePath, "r") as file:
             reader = csv.reader(file)
